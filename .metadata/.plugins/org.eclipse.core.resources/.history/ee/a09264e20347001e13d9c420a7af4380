@@ -1,0 +1,26 @@
+package servlet01.com.future;
+
+import java.io.IOException;
+//import java.io.OutputStream;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+@WebServlet("/main")
+public class ServletMain  extends HttpServlet{
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("hi");
+//		OutputStream os = res.getOutputStream();
+		
+		
+		
+	}
+	
+	
+}

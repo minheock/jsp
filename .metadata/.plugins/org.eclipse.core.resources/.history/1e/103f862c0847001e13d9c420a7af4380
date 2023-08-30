@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1> hi ^^</h1>
+	<button onclick="location.href='main'">메인으로 이동</button>
+</body>
+</html>
