@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+body {
+	background-color: #f7f3e9;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
+	max-width: 600px;
+	margin: 20px auto;
+	background-color: #ffffff;
+	padding: 30px;
+	box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+}
+
+label {
+	font-weight: bold;
+	display: block;
+	margin-bottom: 10px;
+}
+
+input[type='text'],
+textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+}
+
+input[type='submit'] {
+	background-color: #4caf50;
+	color: white;
+	padding: 14px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+input[type='submit']:hover {
+	background-color: #4caf50;
+}
