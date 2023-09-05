@@ -18,9 +18,12 @@ System.out.println(userVO);
 <title>loginAcation</title>
 </head>
 <body>
-	<% if(userVO != null){ %>
+	<% if(userVO != null){
+		session.setAttribute("userId", userVO.getUserId());
+		session.setMaxInactiveInterval(1 * 60); // 1분
+		%>
 		<script> 
-		alert("환영합니다. ^^");
+		alert("환영합니다. ^^");		
 		location.href="main.jsp"
 		</script>
 	<%}else{ %>
