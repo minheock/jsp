@@ -1,5 +1,10 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="service.UserService"%>
+<%@page import="model.BbsVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- <%@ page isELIgnored="false"%> --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,34 +13,19 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
-<title>login</title>
+<title>bbs</title>
 </head>
 <%// 세션.
 	String userId = null;
 	if(session.getAttribute("userId")!= null){
 		userId = (String)session.getAttribute("userId");
 	}
+	
+	UserService service = UserService.getInstance();
+	ArrayList<BbsVO> arr = service.bbsList();
+	pageContext.setAttribute("arr", arr);
+	System.out.println(arr);
 %>
-<% if(userId != null){%>
-<script>
-	window.onload = function(){
-		let time = <%= session.getMaxInactiveInterval()%>;
-		//로그인을 안하면 작동하지 않음.
-		document.getElementById("sessionTime").style.display="inline";
-		function fn_update(){
-			document.getElementById("sessionTime").innerText= "세션의 유효시간 : "+time+"초";
-			if(time <= 0){
-				clearInterval(interval);
-				alert("세션 유효 시간이 만료되었습니다.");
-				location.href="main.jsp";
-			}
-			time--;
-		}
-		let interval = setInterval(fn_update, 1000);
-		fn_update();
-	}
-</script>
-<%} %>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
@@ -51,7 +41,7 @@
 		    			<a class="nav-link active" aria-current="page" href="main.jsp">메인</a>
 		    		</li>
 		    		<li class="nav-item">
-		    			<a class="nav-link" href="bbs.jsp">게시판</a>
+		    			<a class="nav-link active" href="bbs.jsp">게시판</a>
 		    		</li>
 		    	</ul>
 		    	<%if(userId == null){ %>
@@ -75,31 +65,43 @@
 		    	<ul class="nav navbar-nav navbar-right">
 		    		<li class="nav-item dropdown">
 		    		<a class="nav=link dropdown-toggle" href="#" rolo="button" data-bs-toggle="dropdown" aria-expanded="false">
-		    			${userId}님
+		    			<%=userId %>님
 		    		</a>
 		    		<ul class="dropdown-menu">
-		    		<li><a class="dropdown-item" href="mypage.jsp">
-		    			마이페이지
-		    		</a></li>
 		    		<li><a class="dropdown-item" href="logoutAction.jsp">
 		    			로그아웃
 		    		</a></li>
 		    		</ul>		    		
 		    		</li>
-		    	</ul>		    	 
+		    	</ul>
 		    	<%}%>		    	
 		    </div>
 		</div>
 	</nav>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-4"></div>
-			<div class="col-lg-4">
-				main 입니다.
-			</div>
-			<div class="col-lg-4">				
-				<span id="sessionTime" style="display:none"></span>
-				<script>fn_update();</script>
+			<div class="col-lg-1"></div>
+			<div class="col-lg-10">
+				<table class="table table-striped"
+					style="text-align:center">
+					<thead>
+						<tr>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="vo" items="${arr}">
+						<tr>
+							<td>${vo.bbsTitle}</td>
+							<td>${vo.authorId}</td>
+							<td>${vo.updateDt}</td>
+						</tr>
+						
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

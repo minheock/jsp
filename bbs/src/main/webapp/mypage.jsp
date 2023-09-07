@@ -1,3 +1,5 @@
+<%@page import="service.UserService"%>
+<%@page import="model.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,32 +12,18 @@
 <meta charset="UTF-8">
 <title>login</title>
 </head>
-<%// 세션.
+<%
 	String userId = null;
 	if(session.getAttribute("userId")!= null){
 		userId = (String)session.getAttribute("userId");
+	}else{
+		// 사용자 정보 없을때
+		response.sendRedirect("index.jsp");
 	}
+	UserService service = UserService.getInstance();
+	UserVO vo = service.UserInfo(userId);
+	pageContext.setAttribute("vo", vo);
 %>
-<% if(userId != null){%>
-<script>
-	window.onload = function(){
-		let time = <%= session.getMaxInactiveInterval()%>;
-		//로그인을 안하면 작동하지 않음.
-		document.getElementById("sessionTime").style.display="inline";
-		function fn_update(){
-			document.getElementById("sessionTime").innerText= "세션의 유효시간 : "+time+"초";
-			if(time <= 0){
-				clearInterval(interval);
-				alert("세션 유효 시간이 만료되었습니다.");
-				location.href="main.jsp";
-			}
-			time--;
-		}
-		let interval = setInterval(fn_update, 1000);
-		fn_update();
-	}
-</script>
-<%} %>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
@@ -95,12 +83,27 @@
 		<div class="row">
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4">
-				main 입니다.
+				<form action="mypageAction.jsp" method="post" class="needs-validation" novalidate>
+					<h3 style="text-align:center; padding-bottom:5%; padding-top:15%">마이페이지</h3>
+					<div class="form-group">
+						<input type="text" class="form-control"						
+							placeholder="아이디" maxlength="20" value="${vo.userId}" disabled>
+						<input type="hidden" name="userId" value="${vo.userId}">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control"
+							placeholder="비밀번호" name="userPw" maxlength="20" value="${vo.userPw}" disabled>
+						
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control"
+							placeholder="이름" name="userNm" maxlength="20" value="${vo.userNm}">
+					</div>
+					<input type="submit" class="btn btn-primary form-control"
+						value="수정하기">
+				</form>
 			</div>
-			<div class="col-lg-4">				
-				<span id="sessionTime" style="display:none"></span>
-				<script>fn_update();</script>
-			</div>
+			<div class="col-lg-4"></div>
 		</div>
 	</div>
 </body>

@@ -53,7 +53,19 @@ public class UserDao {
 		if(ps!=null)ps.close();
 		return cnt;
 	}
-	
+	// 회원수정
+		public int updateUser(Connection conn, UserVO user) throws SQLException {
+			StringBuffer query = new StringBuffer();
+			query.append(" UPDATE tb_user ");
+			query.append(" SET user_nm =? ");
+			query.append(" WHERE user_id =? ");
+			PreparedStatement ps = conn.prepareStatement(query.toString());
+			ps.setString(1, user.getUserNm());
+			ps.setString(2, user.getUserId());
+			int cnt = ps.executeUpdate();
+			if(ps!=null)ps.close();
+			return cnt;
+		}
 	
 	// 전체 게시글 목록 조회
 	public ArrayList<BbsVO> bbsList(Connection conn) throws SQLException{

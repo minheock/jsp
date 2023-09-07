@@ -34,6 +34,21 @@ public class UserService {
 		return null;
 	}
 	
+	//회원정보 조회
+		public UserVO UserInfo(String id) {
+			Connection conn = cp.getConnection();
+			try {
+				UserVO vo =  dao.loginUser(conn, id);
+				return vo;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				if(conn != null) cp.releaseConnection(conn);
+			}
+			return null;
+		}
+	
+	
 	// 회원가입(INSERT)
 	public int insertUser(UserVO user) {
 		Connection conn = cp.getConnection();
@@ -45,6 +60,16 @@ public class UserService {
 		}
 		return 0;
 	}
+//	회원정보 수정
+	public int updateUser(UserVO user) {
+		Connection conn = cp.getConnection();
+		try {
+			return dao.updateUser(conn, user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}	
 	// 전체 게시글 목록 조회
 	public ArrayList<BbsVO> bbsList (){
 		Connection conn = cp.getConnection();

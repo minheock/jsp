@@ -17,10 +17,6 @@
 <!-- 	UserService의 insertUser 메서드를 호출하여 회원정보 저장 후 -->
 <!-- 	리턴 값이 1이면 (정상저장) 세션에 userId저장 후 main.jsp로 이동 -->
 <!-- 	리턴 값이 0이면 join.jsp 화면으로 이동시켜 주세요  -->
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +27,8 @@
    <%
 	if(UserService.getInstance().insertUser(userVO) == 1){
 		session.setAttribute("userId", userVO.getUserId());
-		session.setAttribute("userPw", userVO.getUserPw());
-		session.setAttribute("userNm", userVO.getUserNm());
+// 		session.setAttribute("userPw", userVO.getUserPw());
+// 		session.setAttribute("userNm", userVO.getUserNm());
 	%>
 	<script> 
 		location.href="main.jsp"
