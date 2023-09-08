@@ -43,9 +43,8 @@
 						class="nav=link dropdown-toggle" href="#" rolo="button"
 						data-bs-toggle="dropdown" aria-expanded="false"> ${userId}님 </a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="mypage.jsp"> 마이페이지 </a></li>
-							<li><a class="dropdown-item" href="logout">
-									로그아웃 </a></li>
+							<li><a class="dropdown-item" href="mypage"> 마이페이지 </a></li>
+							<li><a class="dropdown-item" href="logout"> 로그아웃 </a></li>
 						</ul></li>
 				</ul>
 			</c:if>
